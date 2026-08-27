@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import swaggerUi from "swagger-ui-express";
+import type { Request, Response } from "express";
 
 import { swaggerSpec } from "./config/swagger.js";
 import { cursosRouter } from "./controllers/cursos.controller.js";
@@ -26,8 +27,10 @@ app.use("/api/estudiantes", estudiantesRouter);
 app.use("/api/profesores", profesoresRouter);
 app.use("/api/calificaciones", calificacionesRouter);
 
-app.get("/", (req, res) => {
-  res.json({ mensaje: "Bienvenido a la API de El Colegio de Kevin. Ve a /api-docs" });
+app.get("/", (req: Request, res: Response) => {
+  res.json({
+    mensaje: "Bienvenido a la API de El Colegio de Kevin. Ve a /api-docs",
+  });
 });
 
 const PORT = process.env.PORT ?? 3000;
