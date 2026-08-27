@@ -41,3 +41,13 @@ cursos
 11.- Falta importar Request y Response en el index
 12.- En obtenercursoporid en el conroller la condicional si existe el curso estaba mal, if(curso) a if(!curso) ya que si no existe tiene que mandar el mensaje
 13.- En el cursos.model la funcion en eliminar curso la consulta query esta mal escrita por que falta el WHERE id = $1
+
+Estudiantes
+-----------
+15. instalacion pg
+16. instalacion de dotenv
+17. estudiantes model.ts | linea 16, WHERE di en vez de id = $1
+18. estudiantes model.ts | buscarEstudiantesPorNombre  reemblazad %nombre por $1, asi prevenismos inyeccion sql
+19. squema - estudiantes | linea 5 | edad limite de 180 años cambiarlo  - tambien agregar anotaciones como edad minima y la edad maxima
+20. estudiantes-controller | linea 59 | // corregido: se obtiene id desde req.params.id en vez de req.body.curso_id
+21.   const estudiante = await actualizarEstudiante(id, req.body); ya que sino el id del estudiante seria actualizao con el id iequivalente al numero de curso
