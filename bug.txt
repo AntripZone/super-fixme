@@ -1,0 +1,10 @@
+Bugs 
+1.- Error encontrado en la conexion a la base de datos, en la parte de el Password
+2.- Falta importaciones en Curso.controller de request, response y nextfunction 
+3.- Falta poner a cada endpoint lo mismo (req)de tipo request y lo de res y next igual 
+4.- la consulta query en cursos.modul esta mal escrita el nombre de la tabla curso a cursos
+5.- el orden en que le pasamos los datos en Actualizar en curso.modul esta mal escrita ya que manda los valores y lo recibe en otra columna 
+6.- Falto el .trim()en validaciones de zod en curso.schema en nombre para que borre los espacios 
+7.- Falta importar Request y Response en el index
+8.- En obtenercursoporid en el conroller la condicional si existe el curso estaba mal, if(curso) a if(!curso) ya que si no existe tiene que mandar el mensaje
+9.- En el cursos.model la funcion en eliminar curso la consulta query esta mal escrita por que falta el WHERE id = $1

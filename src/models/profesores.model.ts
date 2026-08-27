@@ -23,7 +23,7 @@ export const crearProfesor = async (data: {
   telefono?: string;
 }): Promise<Profesor> => {
   const result = await pool.query(
-    "INSERT INTO profesores (nombre, email) VALUES ($1, $2) RETURNING *",
+    "INSERT INTO profesores (nombre, email, telefono) VALUES ($1, $2, $3) RETURNING *",
     [data.nombre, data.email, data.telefono ?? null]
   );
   return result.rows[0];

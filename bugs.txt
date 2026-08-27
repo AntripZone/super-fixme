@@ -1,0 +1,43 @@
+Bugs encontrados:
+Profesores
+------------------
+1. La linea password: process.env.DB_PASWORD, estaba sin una S. Lo correcto debería ser password: process.env.DB_PASSWORD en db.config.
+2. crearProfesores no esta definido, así no puede hacer la validacion y la creacion del profesor. El nombre es crearProfesor.
+3. export const crearProfesor = async (data: {
+  nombre: string;
+  email: string;
+  telefono?: string;
+}): Promise<Profesor> => {
+  const result = await pool.query(
+    "INSERT INTO profesores (nombre, email) VALUES ($1, $2) RETURNING *",
+    [data.nombre, data.email, data.telefono ?? null]
+  );
+  return result.rows[0];
+};
+
+La funcion solo llama 2 parametros de nombre, email. Falta telefono. La funcion correcta debería ser:
+export const crearProfesor = async (data: {
+  nombre: string;
+  email: string;
+  telefono?: string;
+}): Promise<Profesor> => {
+  const result = await pool.query(
+    "INSERT INTO profesores (nombre, email, telefono) VALUES ($1, $2, $3) RETURNING *",
+    [data.nombre, data.email, data.telefono ?? null]
+  );
+  return result.rows[0];
+};
+
+4. La variable telefono normalmente debería ser tipo number, lo cual tambien se debería corregir en la DB
+5. El post se debería validar por email y nombre.
+
+cursos
+-------------
+6.- Falta importaciones en Curso.controller de request, response y nextfunction
+7.- Falta poner a cada endpoint lo mismo (req)de tipo request y lo de res y next igual
+8.- la consulta query en cursos.modul esta mal escrita el nombre de la tabla curso a cursos
+9.- el orden en que le pasamos los datos en Actualizar en curso.modul esta mal escrita ya que manda los valores y lo recibe en otra columna
+10.- Falto el .trim()en validaciones de zod en curso.schema en nombre para que borre los espacios
+11.- Falta importar Request y Response en el index
+12.- En obtenercursoporid en el conroller la condicional si existe el curso estaba mal, if(curso) a if(!curso) ya que si no existe tiene que mandar el mensaje
+13.- En el cursos.model la funcion en eliminar curso la consulta query esta mal escrita por que falta el WHERE id = $1
