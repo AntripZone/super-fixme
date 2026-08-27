@@ -1,0 +1,32 @@
+Bugs encontrados:
+Profesores
+------------------
+1. La linea password: process.env.DB_PASWORD, estaba sin una S. Lo correcto debería ser password: process.env.DB_PASSWORD en db.config.
+2. crearProfesores no esta definido, así no puede hacer la validacion y la creacion del profesor. El nombre es crearProfesor.
+3. export const crearProfesor = async (data: {
+  nombre: string;
+  email: string;
+  telefono?: string;
+}): Promise<Profesor> => {
+  const result = await pool.query(
+    "INSERT INTO profesores (nombre, email) VALUES ($1, $2) RETURNING *",
+    [data.nombre, data.email, data.telefono ?? null]
+  );
+  return result.rows[0];
+};
+
+La funcion solo llama 2 parametros de nombre, email. Falta telefono. La funcion correcta debería ser:
+export const crearProfesor = async (data: {
+  nombre: string;
+  email: string;
+  telefono?: string;
+}): Promise<Profesor> => {
+  const result = await pool.query(
+    "INSERT INTO profesores (nombre, email, telefono) VALUES ($1, $2, $3) RETURNING *",
+    [data.nombre, data.email, data.telefono ?? null]
+  );
+  return result.rows[0];
+};
+
+4. La variable telefono normalmente debería ser tipo number, lo cual tambien se debería corregir en la DB
+5. El post se debería validar por email y nombre.

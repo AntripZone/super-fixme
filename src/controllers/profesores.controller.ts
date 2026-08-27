@@ -36,7 +36,7 @@ profesoresRouter.get("/:id", async (req, res, next) => {
 
 profesoresRouter.post("/", validate(profesorSchema), async (req, res, next) => {
   try {
-    const nuevoProfesor = await crearProfesores(req.body);
+    const nuevoProfesor = await crearProfesor(req.body);
     res.status(201).json(nuevoProfesor);
   } catch (err) {
     next(err);
