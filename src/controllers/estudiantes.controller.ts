@@ -56,7 +56,7 @@ estudiantesRouter.post("/", validate(estudianteSchema), async (req, res, next) =
 
 estudiantesRouter.put("/:id", validate(actualizarEstudianteSchema), async (req, res, next) => {
   try {
-    const id = Number(req.body.curso_id);
+    const id = Number(req.params.id);  // corregido: se obtiene id desde req.params.id en vez de req.body.curso_id
     const estudiante = await actualizarEstudiante(id, req.body);
     if (!estudiante) {
       res.status(404).json({ error: "Estudiante no encontrado" });

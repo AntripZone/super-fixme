@@ -1,0 +1,8 @@
+1. config/db.ts/linea 10 = corregir password (doble S)
+2. instalacion pg
+3. instalacion de dotenv
+4. estudiantes model.ts | linea 16, WHERE di en vez de id = $1
+5. estudiantes model.ts | buscarEstudiantesPorNombre  reemblazad %nombre por $1, asi prevenismos inyeccion sql
+6. squema - estudiantes | linea 5 | edad limite de 180 años cambiarlo  - tambien agregar anotaciones como edad minima y la edad maxima 
+7. estudiantes-controller | linea 59 | // corregido: se obtiene id desde req.params.id en vez de req.body.curso_id
+8.   const estudiante = await actualizarEstudiante(id, req.body); ya que sino el id del estudiante seria actualizao con el id iequivalente al numero de curso

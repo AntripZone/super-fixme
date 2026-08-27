@@ -9,11 +9,11 @@ export interface Estudiante {
 
 export const obtenerEstudiantes = async (): Promise<Estudiante[]> => {
   const result = await pool.query("SELECT * FROM estudiantes ORDER BY id");
-  return result.rows.sort((a, b) => b.edad - a.edad);
+  return result.rows.sort((a, b) => b.edad - a.edad);  //en duda, sino podria ser return result.rows;
 };
 
 export const obtenerEstudiantePorId = async (id: number): Promise<Estudiante | undefined> => {
-  const result = await pool.query("SELECT * FROM estudiantes WHERE di = $1", [id]);
+  const result = await pool.query("SELECT * FROM estudiantes WHERE id = $1", [id]); //corregido id
   return result.rows[0];
 };
 
@@ -49,7 +49,8 @@ export const actualizarEstudiante = async (
 
 export const buscarEstudiantesPorNombre = async (nombre: string): Promise<Estudiante[]> => {
   const result = await pool.query(
-    `SELECT * FROM estudiantes WHERE nombre ILIKE '%${nombre}%' ORDER BY id`
+    `SELECT * FROM estudiantes WHERE nombre ILIKE $1 ORDER BY id`,
+    [`%${nombre}%`]  // corregido con $1 para prevenir inyeccion sql (asi evitamos ataque)
   );
   return result.rows;
 };
